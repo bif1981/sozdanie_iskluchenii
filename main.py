@@ -22,15 +22,32 @@
 # обработки ошибок в сложных программах.
 # Важно!! Для передачи обработанных исключений в вызвавшую функцию, нужно вызывать raise.
 
-def test():
-    try:
-        ...
-    except MyException1 as e: # если случится это исключение, мы
-        print(f"Ошибка: {e}") # передадим эту информацию в
-        raise # вызвашую функцию
+class InvalidDataException(Exception):
+    pass
 
-def test1():
-    try:
-        ...
-    except MyException2 as e: # если случится это исключение,
-        print(f"Внимание: {e}") # то вызвавшая функция не узнает, что произошло исключение
+class ProcessingException(Exception):
+    pass
+
+try:
+    raise InvalidDataException('Войска движутся на северо-запад!')
+except InvalidDataException as exc:
+    print(f'Поймано исключение {exc}')
+    raise ProcessingException('Неверное направление движения!')
+else:
+    print('Войска должны двигаться на юго-запад!')
+finally:
+    print('Победа будет за нами!!!')
+
+
+# def test():
+#     try:
+#         ...
+#     except MyException1 as e: # если случится это исключение, мы
+#         print(f"Ошибка: {e}") # передадим эту информацию в
+#         raise # вызвашую функцию
+#
+# def test1():
+#     try:
+#         ...
+#     except MyException2 as e: # если случится это исключение,
+#         print(f"Внимание: {e}") # то вызвавшая функция не узнает, что произошло исключение
